@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
 <div class="row">
@@ -19,19 +20,55 @@
       </nav>
 
       <div>
-        <p>Welcome {{ name }}</p>
-
-<!-- 
-        <div>
-            <form action="">
-                Add Post
-
-
+        <h2>Welcome {{ name }}</h2>
+        <div class="row col-sm-12">
+            <form action="/post-message" method="POST">
+                {{  form.hidden_tag() }}
+                {{ wtf.form_field(form.message) }}
+                <input type="submit" value="Post" class="btn btn-primary pull-right">
             </form>
-        </div> -->
-
-
+        </div> 
       </div>
+
+      <br>
+      <br>
+      <br>
+      <div class="row col-sm-12">
+            {% for message in messages %}
+            <br>
+            <br>
+            <div>
+                    <h4>{{message.username}} </h4> 
+                    <small>{{message.created_at}}</small>
+                    <p>{{message.content}}</p>
+            </div>
+ 
+            <div>
+                <form action="/post-comment/{{message.id}}" method="POST">
+                    {{  comment_form.hidden_tag() }}
+                    {{ wtf.form_field(comment_form.comment) }}
+                    <input type="submit" value="Post" class="btn btn-primary pull-right">
+                </form>
+             </div>
+         
+
+
+
+            {% for comment in comments %}
+            {% if comment.message_id == message.id %}
+            <div>
+              <div class="transbox">
+                <h4><small>{{ comment.username }}</small> replied:</h4>
+                <small>{{ comment.created_at }}</small>
+                <p>{{ comment.content }}</p>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %} 
+            {% endfor %}
+      </div>
+
+      
 </div>
 
 

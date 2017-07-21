@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
+from wtforms import StringField, PasswordField, BooleanField, TextAreaField
 from wtforms.validators import InputRequired, Email, Length
+
 
 
 class LoginForm(FlaskForm):
@@ -18,6 +19,9 @@ class SignupForm(FlaskForm):
 
 
 
-# class MessageForm(FlaskForm):
-#     message = StringField('message', validators=[InputRequired(), Length(max=500)])
-#     user
+class MessageForm(FlaskForm):
+    message = TextAreaField(validators=[InputRequired(), Length(max=140)])
+    
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField(validators=[InputRequired(), Length(max=140)])

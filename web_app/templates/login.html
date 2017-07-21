@@ -5,8 +5,8 @@
 
 {% block content %}
 <div class="col-sm-4 col-sm-offset-4">
-    <p>Already have an account?</p>
-    <h2>Login Here</h2>
+    <h2>Login</h2>
+    
     <form action="/login" method="POST">
 
       {% with messages = get_flashed_messages(with_categories=true) %}
@@ -22,7 +22,7 @@
       {{  form.hidden_tag() }}
       {{ wtf.form_field(form.username) }}
       {{ wtf.form_field(form.password) }}
-      {{ wtf.form_field(form.rememberMe ) }}
+      {{ wtf.form_field(form.rememberMe ) }} <a href="/signup">Don't have an account?</a>
       <input type="submit" value="Login" class="btn btn-primary pull-right">
     </form>
   </div>
